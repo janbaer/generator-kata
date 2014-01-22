@@ -5,14 +5,14 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('yo-generator-kata generator', function () {
+describe('kata generator', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('yo-generator-kata:app', [
+      this.app = helpers.createGenerator('kata:app', [
         '../../app'
       ]);
       done();
