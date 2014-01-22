@@ -1,0 +1,6 @@
+{
+  "name": "<%= _.slugify(nameOfKata) %>",
+  "version": "0.0.0",
+  "dependencies": {}
+}
+
