@@ -9,7 +9,7 @@ var KataGenerator = module.exports = function KataGenerator(args, options, confi
   yeoman.generators.Base.apply(this, arguments);
 
   this.on('end', function () {
-    //this.installDependencies({ skipInstall: options['skip-install'] });
+    this.installDependencies({ skipInstall: options['skip-install'] });
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -43,7 +43,6 @@ KataGenerator.prototype.askFor = function () {
 };
 
 KataGenerator.prototype.projectfiles = function () {
-  this.mkdir('lib');
   this.mkdir('src');
   this.mkdir('test');
 
@@ -51,6 +50,8 @@ KataGenerator.prototype.projectfiles = function () {
   this.copy('.jshintrc', '.jshintrc');
   this.copy('.bowerrc', '.bowerrc');
   this.copy('karma.conf.js', 'karma.conf.js');
+  this.copy('index.html', 'index.html');
+  this.copy('test/testSpec.js', 'test/testSpec.js');
 
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
