@@ -1,8 +1,20 @@
-# generator-yo-generator-kata [![Build Status](https://secure.travis-ci.org/janbaer/generator-kata.png?branch=master)](https://travis-ci.org/janbaer/generator-kata)
+# generator-kata [![Build Status](https://secure.travis-ci.org/janbaer/generator-kata.png?branch=master)](https://travis-ci.org/janbaer/generator-kata)
 
 A generator for [Yeoman](http://yeoman.io).
 
 ## Getting Started
+
+This generator generates a directory structure to write a kata like GameOfLife with JavaScript in TDD. The current version of this generator uses Jasmine with the BDD style to write you tests and Karma as testrunner.
+
+The following global modules are required for this
+
+- karma
+- yeoman
+- generator-kata
+
+After you've installed all required modules you just have to enter **yo kata** in the directory in that you'll save the files.
+
+After 
 
 ### What is Yeoman?
 

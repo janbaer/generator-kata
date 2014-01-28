@@ -1,6 +1,6 @@
 # Overview
 
-This package contains a basic folder structure to create develop a kata with JavaScript.
+This package contains a basic folder structure to develop a kata with JavaScript.
 
 It uses Karma as testrunner and phantom.js as browser.
 

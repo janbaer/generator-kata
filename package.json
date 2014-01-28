@@ -1,12 +1,12 @@
 {
   "name": "generator-kata",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A generator for Yeoman",
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/janbaer/generator-yo-generator-kata",
-  "bugs": "https://github.com/janbaer/generator-yo-generator-kata/issues",
+  "homepage": "https://github.com/janbaer/generator-kata",
+  "bugs": "https://github.com/janbaer/generator-kata/issues",
   "author": {
     "name": "Jan Baer",
     "email": "jan@janbaer.de",
@@ -15,7 +15,7 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/janbaer/generator-yo-generator-kata.git"
+    "url": "git://github.com/janbaer/generator-kata.git"
   },
   "scripts": {
     "test": "mocha"

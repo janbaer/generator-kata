@@ -27,12 +27,12 @@ KataGenerator.prototype.askFor = function () {
   var prompts = [{
     name: 'nameOfAuthor',
     message: 'Whats your name?',
-    default: 'Jan Baer'
+    default: ''
   },
   {
     name: 'nameOfKata',
     message: 'Whats the name of your kata?',
-    default: 'Game of Life'
+    default: ''
   }];
 
   this.prompt(prompts, function (props) {
