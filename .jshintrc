@@ -18,9 +18,5 @@
   "trailing": true,
   "smarttabs": true,
   "white": true,
-  "globals": {
-      "describe": true,
-      "it": true,
-      "expect": true
-  }
+  "globals": [ "describe", "it", "beforeEach", "afterEach", "expect", "spyOn", "jasmine" ]
 }
