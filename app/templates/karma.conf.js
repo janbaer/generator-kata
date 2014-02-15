@@ -1,7 +1,9 @@
 // Karma configuration
 // Generated on Wed Sep 18 2013 08:04:02 GMT+0200 (CEST)
 
-module.exports = function(config) {
+module.exports = function (config) {
+  'use strict';
+
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -14,7 +16,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      //'lib/**/*.js',
+      //'bower/**/*.js',
       'src/*.js',
       'test/**/*Spec.js'
     ],
