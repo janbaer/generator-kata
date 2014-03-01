@@ -52,6 +52,7 @@ KataGenerator.prototype.projectfiles = function () {
   this.copy('karma.conf.js', 'karma.conf.js');
   this.copy('index.html', 'index.html');
   this.copy('test/testSpec.js', 'test/testSpec.js');
+  this.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
 
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
