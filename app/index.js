@@ -49,6 +49,7 @@ KataGenerator.prototype.projectfiles = function () {
   this.copy('.editorconfig', '.editorconfig');
   this.copy('.jshintrc', '.jshintrc');
   this.copy('.bowerrc', '.bowerrc');
+  this.copy('.gitignore', '.gitignore');
   this.copy('karma.conf.js', 'karma.conf.js');
   this.copy('jasmine.html', 'jasmine.html');
   this.copy('test/testSpec.js', 'test/testSpec.js');
