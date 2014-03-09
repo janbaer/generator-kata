@@ -33,11 +33,24 @@ KataGenerator.prototype.askFor = function () {
     name: 'nameOfKata',
     message: 'Whats the name of your kata?',
     default: ''
+  },
+  {
+    type: 'list',
+    name: 'browser',
+    message: 'Which browser do you want to use for debugging?',
+    choices: [{
+      name: 'Chrome',
+      value: 'Chrome'
+    }, {
+      name: 'ChromeCanary',
+      value: 'ChromeCanary'
+    }]
   }];
 
   this.prompt(prompts, function (props) {
     this.nameOfKata = props.nameOfKata;
     this.nameOfAuthor = props.nameOfAuthor;
+    this.browser = props.browser;
     cb();
   }.bind(this));
 };
@@ -50,12 +63,12 @@ KataGenerator.prototype.projectfiles = function () {
   this.copy('.jshintrc', '.jshintrc');
   this.copy('.bowerrc', '.bowerrc');
   this.copy('.gitignore', '.gitignore');
-  this.copy('karma.conf.js', 'karma.conf.js');
+  this.copy('_package.json', 'package.json');
   this.copy('jasmine.html', 'jasmine.html');
   this.copy('test/testSpec.js', 'test/testSpec.js');
   this.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
 
-  this.template('_package.json', 'package.json');
+  this.template('karma.conf.js', 'karma.conf.js');
   this.template('_bower.json', 'bower.json');
 };
 

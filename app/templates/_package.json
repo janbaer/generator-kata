@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "karma start",
-    "test": "karma start --browsers ChromeCanary"
+    "test": "karma start --browsers <%= browser %>"
   },
   "keywords": [
     "tdd",
