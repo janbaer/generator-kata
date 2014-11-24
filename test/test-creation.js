@@ -27,7 +27,7 @@ describe('kata generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      'someOption': true
+      reporters: ['spec']
     });
 
     this.app.options['skip-install'] = true;

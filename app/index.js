@@ -45,12 +45,27 @@ KataGenerator.prototype.askFor = function () {
       name: 'ChromeCanary',
       value: 'ChromeCanary'
     }]
+  },
+  {
+    type: 'checkbox',
+    name: 'reporters',
+    message: 'Which reporters do you want to use for the test output?',
+    choices: [{
+      name: 'Spec',
+      value: 'spec',
+      checked: true
+    }, {
+      name: 'Growl (Mac only)',
+      value: 'growl'
+    }],
+    default: ['spec']
   }];
 
   this.prompt(prompts, function (props) {
     this.nameOfKata = props.nameOfKata;
     this.nameOfAuthor = props.nameOfAuthor;
     this.browser = props.browser;
+    this.reporters = props.reporters;
     cb();
   }.bind(this));
 };
