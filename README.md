@@ -14,7 +14,7 @@ The following global modules are required for this
 
 After you've installed all required modules you just have to enter **yo kata** in the directory in that you'll save the files.
 
-After 
+After
 
 ### What is Yeoman?
 
@@ -30,29 +30,22 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
-### Yeoman Generators
+### About the Kata Generator
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+This generator generates a basic folder structure to develop a kata with JavaScript.
 
-To install generator-kata from npm, run:
+It uses Karma as testrunner and phantom.js as browser.
 
-```
-$ npm install -g generator-kata
-```
+To work with this template do the following steps:
 
-Finally, initiate the generator:
+* install karma as global node module with **npm install karma -g**
+* install phantom.js as global node module with **npm install phantomjs -g**
+* all other dependencies will be automatically installed after the generator has been executed
+* run **npm start** to execute the tests with the PhantomJS Browser
+* run **npm test** to execute the tests with ChromeCanary or Chrome with the ability to debug your tests.
 
-```
-$ yo kata
-```
-
-### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
-
-## License
+Since version 0.0.10 ES6 is supported with the [6to5](http://6to5.org/) transpiler.
+It is integrated via a karma preprocessor. That means that all your code will automatically
+transpiled to ES5 code before the tests will be executed.
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

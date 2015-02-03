@@ -16,10 +16,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      //'bower/**/*.js',
       'test/phantom-polyfill.js',
       'src/**/*.js',
-      'test/**/*Spec.js'
+      'test/**/*.js'
     ],
 
 
@@ -68,6 +67,23 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
+
+    preprocessors: {
+      'src/**/*.js': ['6to5'],
+      'test/**/*.js': ['6to5']
+    },
+
+    '6to5Preprocessor': {
+      options: {
+        sourceMap: 'inline'
+      },
+      filename: function(file) {
+        return file.originalPath.replace(/\.js$/, '.es5.js');
+      },
+      sourceFileName: function(file) {
+        return file.originalPath;
+      }
+    }
   });
 };
