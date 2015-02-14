@@ -17,6 +17,7 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'test/phantom-polyfill.js',
+      'test/jasmine-aliases.js',
       'src/**/*.js',
       'test/**/*.js'
     ],

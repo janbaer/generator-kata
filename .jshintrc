@@ -29,6 +29,11 @@
     "angular": false,
     "inject": false,
     "_": false,
-    "$": false
+    "$": false,
+    "context": false,
+    "establish": false,
+    "because": false,
+    "when": false,
+    "then": false
   }
 }

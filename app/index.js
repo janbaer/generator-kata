@@ -4,6 +4,7 @@ var fs = require('fs');
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
+var _ = require('underscore.string');
 
 var KataGenerator = module.exports = function KataGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -20,16 +21,8 @@ util.inherits(KataGenerator, yeoman.generators.Base);
 KataGenerator.prototype.askFor = function () {
   var cb = this.async();
 
-  // have Yeoman greet the user.
-  console.log(this.yeoman);
-
   // read https://github.com/SBoudrias/Inquirer.js to do more with options
   var prompts = [{
-    name: 'nameOfAuthor',
-    message: 'Whats your name?',
-    default: ''
-  },
-  {
     name: 'nameOfKata',
     message: 'Whats the name of your kata?',
     default: ''
@@ -63,7 +56,6 @@ KataGenerator.prototype.askFor = function () {
 
   this.prompt(prompts, function (props) {
     this.nameOfKata = props.nameOfKata;
-    this.nameOfAuthor = props.nameOfAuthor;
     this.browser = props.browser;
     this.reporters = props.reporters;
     cb();
@@ -79,8 +71,10 @@ KataGenerator.prototype.projectfiles = function () {
   this.copy('.bowerrc', '.bowerrc');
   this.copy('_gitignore', '.gitignore');
   this.copy('_package.json', 'package.json');
-  this.copy('test/test.js', 'test/test.js');
   this.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
+  this.copy('test/jasmine-aliases.js', 'test/jasmine-aliases.js');
+  this.copy('test/test.js', 'test/' + _.slugify(this.nameOfKata) + '.js');
+  this.copy('src/src.js', 'src/' + _.slugify(this.nameOfKata) + '.js');
 
   this.template('karma.conf.js', 'karma.conf.js');
   this.template('_bower.json', 'bower.json');
