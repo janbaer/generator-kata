@@ -30,3 +30,15 @@ It is integrated via a karma preprocessor. That means that all your code will au
 transpiled to ES5 code before the tests will be executed.
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+
+## Version history
+
+* 0.11
+  * Name of author removed
+  * Name of kata will be used for file names
+  * Add some aliases for *beforeEach* like *establish* and *because* to clarify the sense of a code block
+* 0.10
+  * Add support for ES6 via the karma 6to5 preprocessor
+* 0.09
+  * Installation of Growl reporter is optional
+

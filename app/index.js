@@ -73,7 +73,7 @@ KataGenerator.prototype.projectfiles = function () {
   this.copy('_package.json', 'package.json');
   this.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
   this.copy('test/jasmine-aliases.js', 'test/jasmine-aliases.js');
-  this.copy('test/test.js', 'test/' + _.slugify(this.nameOfKata) + '.js');
+  this.copy('test/test.js', 'test/' + _.slugify(this.nameOfKata) + '.spec.js');
   this.copy('src/src.js', 'src/' + _.slugify(this.nameOfKata) + '.js');
 
   this.template('karma.conf.js', 'karma.conf.js');
