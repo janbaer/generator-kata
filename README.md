@@ -33,7 +33,7 @@ transpiled to ES5 code before the tests will be executed.
 
 ## Version history
 
-* 0.12
+* 0.13
   * Name of author removed
   * Name of kata will be used for file names
   * Add some aliases for *beforeEach* like *establish* and *because* to clarify the sense of a code block
