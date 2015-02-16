@@ -10,7 +10,7 @@ var KataGenerator = module.exports = function KataGenerator(args, options, confi
   yeoman.generators.Base.apply(this, arguments);
 
   this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
+    this.installDependencies({ skipInstall: !this.dependencies });
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -52,12 +52,26 @@ KataGenerator.prototype.askFor = function () {
       value: 'growl'
     }],
     default: ['spec']
-  }];
+  },
+  {
+    type: 'list',
+    name: 'installDependencies',
+    message: 'Install the required modules (npm and bower) automatically?',
+    choices: [{
+      name: 'Yes',
+      value: true
+    }, {
+      name: 'No',
+      value: false
+    }]
+  }
+  ];
 
   this.prompt(prompts, function (props) {
     this.nameOfKata = props.nameOfKata;
     this.browser = props.browser;
     this.reporters = props.reporters;
+    this.dependencies = props.installDependencies;
     cb();
   }.bind(this));
 };
