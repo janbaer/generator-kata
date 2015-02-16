@@ -33,7 +33,7 @@ transpiled to ES5 code before the tests will be executed.
 
 ## Version history
 
-* 0.14
+* 0.16
   * Fix problem with missing dependencies
   * Add option if dependencies shall automatically installed
 * 0.13
