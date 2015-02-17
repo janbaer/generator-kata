@@ -23,7 +23,7 @@ describe('kata:app', function () {
         .run(appDir)
         .inDir(tempDir)
         .withPrompt({
-          nameOfKata: 'test',
+          nameOfKata: 'kata',
           browser: 'Chrome',
           reporters: ['spec'],
           installDependencies: false })
@@ -43,6 +43,14 @@ describe('kata:app', function () {
       it(t('creates <%= file %>')({file:f}), function () {
         assert.file(f);
       });
+    });
+
+    it('should create a named package.json', function () {
+      assert.fileContent('package.json', /"name": "kata"/);
+    });
+
+    it('should create a named bower.json', function () {
+      assert.fileContent('bower.json', /"name": "kata"/);
     });
   });
 

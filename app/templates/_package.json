@@ -1,5 +1,5 @@
 {
-  "name": "<%= s.slugify(nameOfKata) %>",
+  "name": "<%= name %>",
   "version": "0.0.1",
   "description": "A Kata with JavaScript",
   "author": "",
@@ -23,7 +23,7 @@
     "karma": "~0.12.31",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "~0.1.4",
-    "karma-chrome-launcher": "~0.1.7",<% if (reporters.indexOf('growl') !== -1) { %>
+    "karma-chrome-launcher": "~0.1.7",<% if (wantsGrowl) { %>
     "karma-growl-reporter": "~0.1.1",<% } %>
     "karma-6to5-preprocessor": "^3.0.0",
     "karma-coffee-preprocessor": "^0.2.1",

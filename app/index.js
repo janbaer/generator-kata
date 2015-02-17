@@ -83,11 +83,18 @@ module.exports = generators.Base.extend({
   writing: function () {
     this.fs.copy('.editorconfig', '.editorconfig');
     this.fs.copy('.jshintrc', '.jshintrc');
-    this.fs.copy('.bowerrc', '.bowerrc');
     this.fs.copy('_gitignore', '.gitignore');
-    this.fs.copy('_package.json', 'package.json');
-    this.fs.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
-    this.fs.copy('test/jasmine-aliases.js', 'test/jasmine-aliases.js');
+
+    this.fs.copy('.bowerrc', '.bowerrc');
+
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      {
+        name: s.slugify(this.nameOfKata),
+        browser: this.browser,
+        wantsGrowl: this.reporters.indexOf('growl') !== -1
+      });
 
     if (this.options.coffee) {
       this.fs.copy('test/test.coffee', 'test/' + s.slugify(this.nameOfKata) + '.spec.coffee');
@@ -97,6 +104,10 @@ module.exports = generators.Base.extend({
       this.fs.copy('src/src.js', 'src/' + s.slugify(this.nameOfKata) + '.js');
     }
 
+    this.fs.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
+    this.fs.copy('test/jasmine-aliases.js', 'test/jasmine-aliases.js');
+
+
     this.fs.copyTpl(
       this.templatePath('karma.conf.js'),
       this.destinationPath('karma.conf.js'),
@@ -105,6 +116,6 @@ module.exports = generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('_bower.json'),
       this.destinationPath('bower.json'),
-      this);
+      {name: s.slugify(this.nameOfKata)});
   }
 });
