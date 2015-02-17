@@ -4,96 +4,130 @@ var fs = require('fs');
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
-var _ = require('underscore.string');
+var s = require('underscore.string');
 
-var KataGenerator = module.exports = function KataGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
+var generators = yeoman.generators;
 
-  this.on('end', function () {
-    this.installDependencies({ skipInstall: !this.dependencies });
-  });
+module.exports = generators.Base.extend({
+  constructor: function () {
+    generators.Base.apply(this, arguments);
 
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-};
+    this.option('coffee');
 
-util.inherits(KataGenerator, yeoman.generators.Base);
+    this.on('end', function () {
+      this.installDependencies({ skipInstall: !this.dependencies });
+    });
 
-KataGenerator.prototype.askFor = function () {
-  var cb = this.async();
-
-  // read https://github.com/SBoudrias/Inquirer.js to do more with options
-  var prompts = [{
-    name: 'nameOfKata',
-    message: 'Whats the name of your kata?',
-    default: ''
+    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
   },
-  {
-    type: 'list',
-    name: 'browser',
-    message: 'Which browser do you want to use for debugging?',
-    choices: [{
-      name: 'Chrome',
-      value: 'Chrome'
-    }, {
-      name: 'ChromeCanary',
-      value: 'ChromeCanary'
-    }]
+
+  prompting: function () {
+    var done = this.async();
+
+    var prompts = [{
+      name: 'nameOfKata',
+      message: 'Whats the name of your kata?',
+      default: 'kata'
+    },
+    {
+      type: 'list',
+      name: 'browser',
+      message: 'Which browser do you want to use for debugging?',
+      choices: [{
+        name: 'Chrome',
+        value: 'Chrome'
+      }, {
+        name: 'ChromeCanary',
+        value: 'ChromeCanary'
+      }],
+      default: 'Chrome'
+    },
+    {
+      type: 'checkbox',
+      name: 'reporters',
+      message: 'Which reporters do you want to use for the test output?',
+      choices: [{
+        name: 'Spec',
+        value: 'spec',
+        checked: true
+      }, {
+        name: 'Growl (Mac only)',
+        value: 'growl'
+      }],
+      default: ['spec']
+    },
+    {
+      type: 'list',
+      name: 'installDependencies',
+      message: 'Install the required modules (npm and bower) automatically?',
+      choices: [{
+        name: 'Yes',
+        value: true
+      }, {
+        name: 'No',
+        value: false
+      }],
+      default: false
+    }
+    ];
+
+    this.prompt(prompts, function (props) {
+      this.nameOfKata = props.nameOfKata;
+      this.browser = props.browser;
+      this.reporters = props.reporters;
+      this.dependencies = props.installDependencies;
+      done();
+    }.bind(this));
   },
-  {
-    type: 'checkbox',
-    name: 'reporters',
-    message: 'Which reporters do you want to use for the test output?',
-    choices: [{
-      name: 'Spec',
-      value: 'spec',
-      checked: true
-    }, {
-      name: 'Growl (Mac only)',
-      value: 'growl'
-    }],
-    default: ['spec']
-  },
-  {
-    type: 'list',
-    name: 'installDependencies',
-    message: 'Install the required modules (npm and bower) automatically?',
-    choices: [{
-      name: 'Yes',
-      value: true
-    }, {
-      name: 'No',
-      value: false
-    }]
+
+  writing: function () {
+    var resolvedCopy = (function (pair) {
+      var src = pair[0];
+      var dest = pair[1];
+
+      this.fs.copy(
+        this.templatePath(src),
+        this.destinationPath(dest));
+    }).bind(this);
+
+    [
+      ['.editorconfig', '.editorconfig'],
+      ['.jshintrc', '.jshintrc'],
+      ['.bowerrc', '.bowerrc'],
+      ['_gitignore', '.gitignore'],
+      ['test/phantom-polyfill.js', 'test/phantom-polyfill.js'],
+      ['test/jasmine-aliases.js', 'test/jasmine-aliases.js'],
+    ].forEach(resolvedCopy);
+
+    if (this.options.coffee) {
+      [
+        ['test/test.coffee', 'test/' + s.slugify(this.nameOfKata) + '.spec.coffee'],
+        ['src/src.coffee', 'src/' + s.slugify(this.nameOfKata) + '.coffee']
+      ].forEach(resolvedCopy);
+    } else {
+      [
+        ['test/test.js', 'test/' + s.slugify(this.nameOfKata) + '.spec.js'],
+        ['src/src.js', 'src/' + s.slugify(this.nameOfKata) + '.js']
+      ].forEach(resolvedCopy);
+    }
+
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      {
+        name: s.slugify(this.nameOfKata),
+        browser: this.browser,
+        wantsGrowl: this.reporters.indexOf('growl') !== -1
+      });
+
+    this.fs.copyTpl(
+      this.templatePath('karma.conf.js'),
+      this.destinationPath('karma.conf.js'),
+      this);
+
+    this.fs.copyTpl(
+      this.templatePath('_bower.json'),
+      this.destinationPath('bower.json'),
+      {name: s.slugify(this.nameOfKata)});
   }
-  ];
-
-  this.prompt(prompts, function (props) {
-    this.nameOfKata = props.nameOfKata;
-    this.browser = props.browser;
-    this.reporters = props.reporters;
-    this.dependencies = props.installDependencies;
-    cb();
-  }.bind(this));
-};
-
-KataGenerator.prototype.projectfiles = function () {
-  this.mkdir('src');
-  this.mkdir('test');
-
-  this.copy('.editorconfig', '.editorconfig');
-  this.copy('.jshintrc', '.jshintrc');
-  this.copy('.bowerrc', '.bowerrc');
-  this.copy('_gitignore', '.gitignore');
-  this.copy('_package.json', 'package.json');
-  this.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
-  this.copy('test/jasmine-aliases.js', 'test/jasmine-aliases.js');
-  this.copy('test/test.js', 'test/' + _.slugify(this.nameOfKata) + '.spec.js');
-  this.copy('src/src.js', 'src/' + _.slugify(this.nameOfKata) + '.js');
-
-  this.template('karma.conf.js', 'karma.conf.js');
-  this.template('_bower.json', 'bower.json');
-};
-
-
-
-
+});

@@ -1,7 +1,7 @@
 {
   "name": "generator-kata",
-  "version": "0.0.16",
-  "description": "A generator for Yeoman",
+  "version": "0.0.17",
+  "description": "Quickly start doing a code kata with yeoman!",
   "keywords": [
     "yeoman-generator"
   ],
@@ -25,6 +25,7 @@
     "yeoman-generator": "^0.18.7"
   },
   "devDependencies": {
+    "lodash.template": "^3.2.0",
     "mocha": "^2.1.0"
   },
   "peerDependencies": {
