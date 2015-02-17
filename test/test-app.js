@@ -37,11 +37,17 @@ describe('kata:app', function () {
       '.gitignore',
       'package.json',
       'bower.json',
-      'karma.conf.js'
+      'karma.conf.js',
+      'test/phantom-polyfill.js',
+      'test/jasmine-aliases.js'
     ]
     .forEach(function (f) {
       it(t('creates <%= file %>')({file:f}), function () {
         assert.file(f);
+      });
+
+      it(t('created <%= file %> content is not empty or "null"')({file:f}), function () {
+        assert.noFileContent(f, /null/);
       });
     });
 
@@ -89,6 +95,10 @@ describe('kata:app', function () {
     .forEach(function (f) {
       it(t('creates <%= file %>')({file:f}), function () {
         assert.file(f);
+      });
+
+      it(t('created <%= file %> content is not empty or "null"')({file:f}), function () {
+        assert.noFileContent(f, /null/);
       });
     });
   });

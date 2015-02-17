@@ -81,11 +81,35 @@ module.exports = generators.Base.extend({
   },
 
   writing: function () {
-    this.fs.copy('.editorconfig', '.editorconfig');
-    this.fs.copy('.jshintrc', '.jshintrc');
-    this.fs.copy('_gitignore', '.gitignore');
+    var resolvedCopy = (function (pair) {
+      var src = pair[0];
+      var dest = pair[1];
 
-    this.fs.copy('.bowerrc', '.bowerrc');
+      this.fs.copy(
+        this.templatePath(src),
+        this.destinationPath(dest));
+    }).bind(this);
+
+    [
+      ['.editorconfig', '.editorconfig'],
+      ['.jshintrc', '.jshintrc'],
+      ['.bowerrc', '.bowerrc'],
+      ['_gitignore', '.gitignore'],
+      ['test/phantom-polyfill.js', 'test/phantom-polyfill.js'],
+      ['test/jasmine-aliases.js', 'test/jasmine-aliases.js'],
+    ].forEach(resolvedCopy);
+
+    if (this.options.coffee) {
+      [
+        ['test/test.coffee', 'test/' + s.slugify(this.nameOfKata) + '.spec.coffee'],
+        ['src/src.coffee', 'src/' + s.slugify(this.nameOfKata) + '.coffee']
+      ].forEach(resolvedCopy);
+    } else {
+      [
+        ['test/test.js', 'test/' + s.slugify(this.nameOfKata) + '.spec.js'],
+        ['src/src.js', 'src/' + s.slugify(this.nameOfKata) + '.js']
+      ].forEach(resolvedCopy);
+    }
 
     this.fs.copyTpl(
       this.templatePath('_package.json'),
@@ -95,18 +119,6 @@ module.exports = generators.Base.extend({
         browser: this.browser,
         wantsGrowl: this.reporters.indexOf('growl') !== -1
       });
-
-    if (this.options.coffee) {
-      this.fs.copy('test/test.coffee', 'test/' + s.slugify(this.nameOfKata) + '.spec.coffee');
-      this.fs.copy('src/src.coffee', 'src/' + s.slugify(this.nameOfKata) + '.coffee');
-    } else {
-      this.fs.copy('test/test.js', 'test/' + s.slugify(this.nameOfKata) + '.spec.js');
-      this.fs.copy('src/src.js', 'src/' + s.slugify(this.nameOfKata) + '.js');
-    }
-
-    this.fs.copy('test/phantom-polyfill.js', 'test/phantom-polyfill.js');
-    this.fs.copy('test/jasmine-aliases.js', 'test/jasmine-aliases.js');
-
 
     this.fs.copyTpl(
       this.templatePath('karma.conf.js'),
