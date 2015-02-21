@@ -1,26 +1,23 @@
-# generator-kata version 0.12
+# generator-kata
 
 A generator for [Yeoman](http://yeoman.io).
 
 ## Getting Started
 
-This generator generates a directory structure to write a kata like GameOfLife with JavaScript in TDD. The current version of this generator uses Jasmine with the BDD style to write you tests and Karma as testrunner.
-
-The following global modules are required for this
-
-- karma
-- yeoman
-- generator-kata
-
-After you've installed all required modules you just have to enter **yo kata** in the directory in that you'll save the files.
-
-It uses Karma as testrunner and phantom.js as browser.
+This generator generates a directory structure to write a kata like GameOfLife
+with JavaScript or CoffeeScript in TDD.  The current version of this generator
+uses Jasmine with the BDD style to write you tests. It uses Karma as testrunner
+and phantom.js as browser.
 
 To work with this template do the following steps:
 
 * install karma as global node module with **npm install karma -g**
 * install phantom.js as global node module with **npm install phantomjs -g**
 * all other dependencies will be automatically installed after the generator has been executed
+
+After you've installed all required modules you just have to enter **yo kata**
+in the directory in that you'll save the files. When you enter **yo kata --coffee**
+karma will use the coffee-script preprocessor and you can use **CoffeeScript** as language.
 
 * run **npm start** to execute the tests with the PhantomJS Browser
 * run **npm test** to execute the tests with ChromeCanary or Chrome with the ability to debug your tests.
@@ -33,7 +30,10 @@ transpiled to ES5 code before the tests will be executed.
 
 ## Version history
 
-* 0.16
+* 0.18
+  * Add option to choose between **JavaScript** or **CoffeeScript**
+  (Thanks to @ilkererde for his contribution)
+* 0.17
   * Fix problem with missing dependencies
   * Add option if dependencies shall automatically installed
 * 0.13

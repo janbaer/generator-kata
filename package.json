@@ -1,43 +1,50 @@
 {
   "name": "generator-kata",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Quickly start doing a code kata with yeoman!",
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "homepage": "https://github.com/janbaer/generator-kata",
-  "bugs": "https://github.com/janbaer/generator-kata/issues",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "janbaer/generator-kata",
   "author": {
     "name": "Jan Baer",
     "email": "jan@janbaer.de",
     "url": "https://github.com/janbaer"
   },
-  "main": "app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/janbaer/generator-kata.git"
+  "contributors": [
+    {
+      "name": "Andreas Helmberger",
+      "email": "public@ahelmberger.de",
+      "url": "https://github.com/ahelmberger"
+    },
+    {
+      "name": "Ilker Cetinkaya",
+      "email": "github@ilker.de",
+      "url": "https://github.com/ilkerde"
+    }
+  ],
+  "engines": {
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "mocha"
   },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
   "dependencies": {
-    "underscore.string": "^3.0.3",
-    "yeoman-generator": "^0.18.7"
+    "yeoman-generator": "^0.18.0",
+    "chalk": "^0.5.0",
+    "yosay": "^0.3.0",
+    "underscore.string": "^3.0.3"
   },
   "devDependencies": {
     "lodash.template": "^3.2.0",
-    "mocha": "^2.1.0"
+    "mocha": "*"
   },
   "peerDependencies": {
-    "yo": ">=1.4.5"
-  },
-  "engines": {
-    "node": ">=0.10.0",
-    "npm": ">=2.0.0"
-  },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ]
+    "yo": ">=1.0.0"
+  }
 }
