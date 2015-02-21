@@ -14,10 +14,6 @@ module.exports = generators.Base.extend({
 
     this.option('coffee');
 
-    this.on('end', function () {
-      this.installDependencies({ skipInstall: !this.dependencies });
-    });
-
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
   },
 
@@ -55,27 +51,33 @@ module.exports = generators.Base.extend({
         value: 'growl'
       }],
       default: ['spec']
-    },
-    {
-      type: 'list',
-      name: 'installDependencies',
-      message: 'Install the required modules (npm and bower) automatically?',
-      choices: [{
-        name: 'Yes',
-        value: true
-      }, {
-        name: 'No',
-        value: false
-      }],
-      default: false
+    }];
+
+    if (!this.options.coffee) {
+      var languages = {
+          type: 'list',
+          name: 'language',
+          message: 'Which language do you want to use?',
+          choices: [
+          {
+            name: 'JavaScript',
+            value: 'javascript'
+          },
+          {
+            name: 'CoffeScript',
+            value: 'coffee'
+          }]
+        };
+      prompts.push(languages);
     }
-    ];
 
     this.prompt(prompts, function (props) {
       this.nameOfKata = props.nameOfKata;
       this.browser = props.browser;
       this.reporters = props.reporters;
       this.dependencies = props.installDependencies;
+      this.coffee = this.options.coffee || props.language === 'coffee';
+
       done();
     }.bind(this));
   },
@@ -99,7 +101,7 @@ module.exports = generators.Base.extend({
       ['test/jasmine-aliases.js', 'test/jasmine-aliases.js'],
     ].forEach(resolvedCopy);
 
-    if (this.options.coffee) {
+    if (this.coffee) {
       [
         ['test/test.coffee', 'test/' + s.slugify(this.nameOfKata) + '.spec.coffee'],
         ['src/src.coffee', 'src/' + s.slugify(this.nameOfKata) + '.coffee']
@@ -128,6 +130,14 @@ module.exports = generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('_bower.json'),
       this.destinationPath('bower.json'),
-      {name: s.slugify(this.nameOfKata)});
+      {
+        name: s.slugify(this.nameOfKata)
+      });
+  },
+
+  install: function () {
+    this.installDependencies({
+      skipInstall: this.options['skip-install']
+    });
   }
 });
