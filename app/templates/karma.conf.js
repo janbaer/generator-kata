@@ -1,6 +1,3 @@
-// Karma configuration
-// Generated on Wed Sep 18 2013 08:04:02 GMT+0200 (CEST)
-
 module.exports = function (config) {
   'use strict';
 
@@ -10,10 +7,11 @@ module.exports = function (config) {
     files: [
       'test/phantom-polyfill.js',
       'test/jasmine-aliases.js',
-      'src/**/*.js',
-      'test/**/*.js',
+      'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',<% if (coffee) { %>
       'src/**/*.coffee',
-      'test/**/*.coffee'
+      'test/**/*.coffee'<%} else {%>
+      'src/**/*.js',
+      'test/**/*.js'<%}%>
     ],
     exclude: [],
     reporters: [<%= reporters.map(function (reporter) { return '\'' + reporter + '\'' }).join(', ') %>],
@@ -26,13 +24,13 @@ module.exports = function (config) {
     singleRun: false,
 
     preprocessors: {
-      'src/**/*.js': ['6to5'],
-      'test/**/*.js': ['6to5'],
+      'src/**/*.js': ['babel'],
+      'test/**/*.js': ['babel'],
       'src/**/*.coffee': ['coffee'],
       'test/**/*.coffee': ['coffee']
     },
 
-    '6to5Preprocessor': {
+    'babelPreprocessor': {
       options: {
         sourceMap: 'inline'
       },

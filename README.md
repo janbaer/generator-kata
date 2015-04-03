@@ -30,6 +30,9 @@ transpiled to ES5 code before the tests will be executed.
 
 ## Version history
 
+* 0.19
+  * Switched from 6to5 to babel
+  * Karma searches just for coffee files when user wants to use coffee.
 * 0.18
   * Add option to choose between **JavaScript** or **CoffeeScript**
   (Thanks to @ilkererde for his contribution)
