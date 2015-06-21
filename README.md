@@ -30,8 +30,10 @@ transpiled to ES5 code before the tests will be executed.
 
 ## Version history
 
+* 0.23
+  * Use always the latest version of dependent npm modules
 * 0.22
-  * Updated some the version of some npm modules
+  * Updated the version of some npm modules
 * 0.19
   * Switched from 6to5 to babel
   * Karma searches just for coffee files when user wants to use coffee.

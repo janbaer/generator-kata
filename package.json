@@ -1,6 +1,6 @@
 {
   "name": "generator-kata",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Quickly start doing a code kata with yeoman!",
   "license": "MIT",
   "main": "app/index.js",

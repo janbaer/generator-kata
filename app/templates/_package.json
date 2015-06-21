@@ -19,15 +19,15 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "jasmine-core": "^2.2.0",
-    "karma": "~0.12.31",
-    "karma-jasmine": "^0.3.5",
-    "karma-phantomjs-launcher": "~0.1.4",
-    "karma-chrome-launcher": "~0.1.7",<% if (wantsGrowl) { %>
-    "karma-growl-reporter": "~0.1.1",<% } %>
-    "karma-coffee-preprocessor": "^0.2.1",
-    "karma-babel-preprocessor": "^4.0.1",
-    "karma-spec-reporter": "0.0.18"
+    "jasmine-core": "*",
+    "karma": "*",
+    "karma-jasmine": "*",
+    "karma-phantomjs-launcher": "*",
+    "karma-chrome-launcher": "*",<% if (wantsGrowl) { %>
+    "karma-growl-reporter": "*",<% } %>
+    "karma-coffee-preprocessor": "*",
+    "karma-babel-preprocessor": "*",
+    "karma-spec-reporter": "*"
   },
   "private": true
 }
