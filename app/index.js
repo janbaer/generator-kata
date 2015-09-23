@@ -5,6 +5,7 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var s = require('underscore.string');
+var reader = require('html-wiring');
 
 var generators = yeoman.generators;
 
@@ -14,7 +15,7 @@ module.exports = generators.Base.extend({
 
     this.option('coffee');
 
-    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+    this.pkg = JSON.parse(reader.readFileAsString(path.join(__dirname, '../package.json')));
   },
 
   prompting: function () {
