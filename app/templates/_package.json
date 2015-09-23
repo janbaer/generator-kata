@@ -20,6 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "jasmine-core": "*",
+    "phantomjs": "*",
     "karma": "*",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
