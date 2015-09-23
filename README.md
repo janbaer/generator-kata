@@ -30,6 +30,9 @@ transpiled to ES5 code before the tests will be executed.
 
 ## Version history
 
+* 0.24
+  * Fix a warning with an unresovled peer dependency
+  * Update versions of npm dependencies
 * 0.23
   * Use always the latest version of dependent npm modules
 * 0.22

@@ -1,6 +1,6 @@
 {
   "name": "generator-kata",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Quickly start doing a code kata with yeoman!",
   "license": "MIT",
   "main": "app/index.js",
@@ -35,16 +35,13 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "^0.18.0",
-    "chalk": "^0.5.0",
-    "yosay": "^0.3.0",
-    "underscore.string": "^3.0.3"
+    "yeoman-generator": "^0.20.3",
+    "chalk": "^1.1.1",
+    "yosay": "^1.0.5",
+    "underscore.string": "^3.2.2"
   },
   "devDependencies": {
-    "lodash.template": "^3.2.0",
+    "lodash.template": "^3.6.2",
     "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0"
   }
 }
