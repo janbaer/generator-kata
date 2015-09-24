@@ -14,7 +14,7 @@ module.exports = function (config) {
       'test/**/*.js'<%}%>
     ],
     exclude: [],
-    reporters: [<%= reporters.map(function (reporter) { return '\'' + reporter + '\'' }).join(', ') %>],
+    reporters: [<%- reporters.map(function (reporter) { return '\'' + reporter + '\'' }).join(', ') %>],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

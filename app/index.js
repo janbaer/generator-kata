@@ -126,7 +126,10 @@ module.exports = generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('karma.conf.js'),
       this.destinationPath('karma.conf.js'),
-      this);
+      {
+        coffee: this.coffee,
+        reporters: this.reporters
+      });
 
     this.fs.copyTpl(
       this.templatePath('_bower.json'),
