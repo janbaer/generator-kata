@@ -67,6 +67,10 @@ module.exports = generators.Base.extend({
           {
             name: 'CoffeScript',
             value: 'coffee'
+          },
+          {
+            name: 'Typescript',
+            value: 'typescript'
           }]
         };
       prompts.push(languages);
@@ -77,10 +81,26 @@ module.exports = generators.Base.extend({
       this.browser = props.browser;
       this.reporters = props.reporters;
       this.dependencies = props.installDependencies;
+      this.babel = this.options.babel || props.language === 'javascript';
       this.coffee = this.options.coffee || props.language === 'coffee';
+      this.typescript = this.options.typescript || props.language === 'typescript';
 
       done();
     }.bind(this));
+  },
+
+  resolveFileExt: function (babel, coffee, typescript) {
+    if (babel) {
+      return 'js';
+    }
+
+    if (coffee) {
+      return 'coffee';
+    }
+
+    if (typescript) {
+      return 'ts';
+    }
   },
 
   writing: function () {
@@ -98,21 +118,15 @@ module.exports = generators.Base.extend({
       ['.jshintrc', '.jshintrc'],
       ['.bowerrc', '.bowerrc'],
       ['_gitignore', '.gitignore'],
-      ['test/phantom-polyfill.js', 'test/phantom-polyfill.js'],
-      ['test/jasmine-aliases.js', 'test/jasmine-aliases.js'],
+      ['jasmine-aliases.js', 'jasmine-aliases.js'],
     ].forEach(resolvedCopy);
 
-    if (this.coffee) {
-      [
-        ['test/test.coffee', 'test/' + s.slugify(this.nameOfKata) + '.spec.coffee'],
-        ['src/src.coffee', 'src/' + s.slugify(this.nameOfKata) + '.coffee']
-      ].forEach(resolvedCopy);
-    } else {
-      [
-        ['test/test.js', 'test/' + s.slugify(this.nameOfKata) + '.spec.js'],
-        ['src/src.js', 'src/' + s.slugify(this.nameOfKata) + '.js']
-      ].forEach(resolvedCopy);
-    }
+    var fileExt = this.resolveFileExt(this.babel, this.coffee, this.typescript);
+
+    [
+      ['src/kata.spec.' + fileExt, 'src/' + s.slugify(this.nameOfKata) + '.spec.' + fileExt],
+      ['src/kata.' + fileExt, 'src/' + s.slugify(this.nameOfKata) + '.' + fileExt]
+    ].forEach(resolvedCopy);
 
     this.fs.copyTpl(
       this.templatePath('_package.json'),
@@ -120,6 +134,8 @@ module.exports = generators.Base.extend({
       {
         name: s.slugify(this.nameOfKata),
         browser: this.browser,
+        coffee: this.coffee,
+        typescript: this.typescript,
         wantsGrowl: this.reporters.indexOf('growl') !== -1
       });
 
@@ -127,7 +143,9 @@ module.exports = generators.Base.extend({
       this.templatePath('karma.conf.js'),
       this.destinationPath('karma.conf.js'),
       {
+        babel: this.babel,
         coffee: this.coffee,
+        typescript: this.typescript,
         reporters: this.reporters
       });
 

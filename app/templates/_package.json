@@ -24,10 +24,13 @@
     "karma": "*",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
+    "phantomjs-polyfill": "*",
     "karma-chrome-launcher": "*",<% if (wantsGrowl) { %>
     "karma-growl-reporter": "*",<% } %>
-    "karma-coffee-preprocessor": "*",
-    "karma-babel-preprocessor": "*",
+    "karma-babel-preprocessor": "*",<% if (coffee) { %>
+    "karma-coffee-preprocessor": "*",<% } else if (typescript) {%>
+    "typescript": "*"
+    "karma-typescript-preprocessor": "*",<% } %>
     "karma-spec-reporter": "*"
   },
   "private": true
