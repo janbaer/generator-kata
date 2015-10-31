@@ -90,10 +90,6 @@ module.exports = generators.Base.extend({
   },
 
   resolveFileExt: function (babel, coffee, typescript) {
-    if (babel) {
-      return 'js';
-    }
-
     if (coffee) {
       return 'coffee';
     }
@@ -101,6 +97,8 @@ module.exports = generators.Base.extend({
     if (typescript) {
       return 'ts';
     }
+
+    return 'js';
   },
 
   writing: function () {
@@ -127,6 +125,12 @@ module.exports = generators.Base.extend({
       ['src/kata.spec.' + fileExt, 'src/' + s.slugify(this.nameOfKata) + '.spec.' + fileExt],
       ['src/kata.' + fileExt, 'src/' + s.slugify(this.nameOfKata) + '.' + fileExt]
     ].forEach(resolvedCopy);
+
+    if (this.typescript) {
+      [
+        ['typings/jasmine.d.ts', 'typings/jasmine.d.ts']
+      ].forEach(resolvedCopy);
+    }
 
     this.fs.copyTpl(
       this.templatePath('_package.json'),

@@ -6,14 +6,11 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     files: [
       'jasmine-aliases.js',
-      'node_modules/phantomjs-polyfill/bind-polyfill.js',
-      'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',<% if (coffee) { %>
-      'src/**/*.coffee',
-      'test/**/*.coffee'<%} else if (typescript) {%>
-      'src/**/*.ts',
-      'test/**/*.ts'<%} else {%>
-      'src/**/*.js',
-      'test/**/*.js'<%}%>
+      'node_modules/phantomjs-polyfill/bind-polyfill.js',<% if (babel) {%>
+      'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',<%} else if (coffee) {%>
+      'src/**/*.coffee',<%} else if (typescript) {%>
+      'src/**/*.ts',<%} else {%>
+      'src/**/*.js'<%}%>
     ],
     exclude: [],
     reporters: [<%- reporters.map(function (reporter) { return '\'' + reporter + '\'' }).join(', ') %>],
@@ -68,7 +65,7 @@ module.exports = function (config) {
         removeComments: true // (optional) Do not emit comments to output.
       },
       typings: [
-        'typings/tsd.d.ts'
+        'typings/*.d.ts'
       ],
       transformPath: function(path) {
         return path.replace(/\.ts$/, '.js');

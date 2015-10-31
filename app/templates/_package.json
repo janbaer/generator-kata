@@ -29,7 +29,7 @@
     "karma-growl-reporter": "*",<% } %>
     "karma-babel-preprocessor": "*",<% if (coffee) { %>
     "karma-coffee-preprocessor": "*",<% } else if (typescript) {%>
-    "typescript": "*"
+    "typescript": "*",
     "karma-typescript-preprocessor": "*",<% } %>
     "karma-spec-reporter": "*"
   },
