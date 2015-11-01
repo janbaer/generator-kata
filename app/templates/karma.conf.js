@@ -5,13 +5,11 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
-      'test/phantom-polyfill.js',
-      'test/jasmine-aliases.js',
-      'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',<% if (coffee) { %>
-      'src/**/*.coffee',
-      'test/**/*.coffee'<%} else {%>
-      'src/**/*.js',
-      'test/**/*.js'<%}%>
+      'jasmine-aliases.js',
+      'node_modules/phantomjs-polyfill/bind-polyfill.js',<% if (coffee) {%>
+      'src/**/*.coffee',<%} else if (typescript) {%>
+      'src/**/*.ts',<%} else {%>
+      'src/**/*.js'<%}%>
     ],
     exclude: [],
     reporters: [<%- reporters.map(function (reporter) { return '\'' + reporter + '\'' }).join(', ') %>],
@@ -24,14 +22,18 @@ module.exports = function (config) {
     singleRun: false,
 
     preprocessors: {
-      'src/**/*.js': ['babel'],
-      'test/**/*.js': ['babel'],
-      'src/**/*.coffee': ['coffee'],
-      'test/**/*.coffee': ['coffee']
+      <% if (babel) {%>
+      'src/**/*.js': ['babel']
+      <%} else if (coffee) {%>
+      'src/**/*.coffee': ['coffee']
+      <%} else if (typescript) {%>
+      'src/**/*.ts': ['typescript']
+      <%}%>
     },
-
+    <% if (babel) {%>
     'babelPreprocessor': {
       options: {
+        presets: ['es2015'],
         sourceMap: 'inline'
       },
       filename: function(file) {
@@ -41,7 +43,8 @@ module.exports = function (config) {
         return file.originalPath;
       }
     },
-
+    <%}%>
+    <% if (coffee) {%>
     'coffeePreprocessor': {
       options: {
         sourceMap: true
@@ -49,6 +52,25 @@ module.exports = function (config) {
       transformPath: function(path) {
         return path.replace(/\.coffee$/, '.js');
       }
+    },
+    <%}%>
+    <% if (typescript) { %>
+    typescriptPreprocessor: {
+      options: {
+        sourceMap: false, // (optional) Generates corresponding .map file.
+        target: 'ES5', // (optional) Specify ECMAScript target version: 'ES3' (default), or 'ES5'
+        module: 'amd', // (optional) Specify module code generation: 'commonjs' or 'amd'
+        noImplicitAny: true, // (optional) Warn on expressions and declarations with an implied 'any' type.
+        noResolve: true, // (optional) Skip resolution and preprocessing.
+        removeComments: true // (optional) Do not emit comments to output.
+      },
+      typings: [
+        'typings/*.d.ts'
+      ],
+      transformPath: function(path) {
+        return path.replace(/\.ts$/, '.js');
+      }
     }
+    <%}%>
   });
 };

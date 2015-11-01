@@ -22,10 +22,11 @@ describe('kata:app', function () {
       helpers
         .run(appDir)
         .inDir(tempDir)
-        .withPrompt({
+        .withPrompts({
           nameOfKata: 'kata',
           browser: 'Chrome',
           reporters: ['spec'],
+          language: 'babel',
           installDependencies: false })
         .on('end', done);
     });
@@ -38,8 +39,9 @@ describe('kata:app', function () {
       'package.json',
       'bower.json',
       'karma.conf.js',
-      'test/phantom-polyfill.js',
-      'test/jasmine-aliases.js'
+      'jasmine-aliases.js',
+      'src/kata.js',
+      'src/kata.spec.js'
     ]
     .forEach(function (f) {
       it(t('creates <%= file %>')({file:f}), function () {
@@ -70,7 +72,7 @@ describe('kata:app', function () {
 
     [
       'src/kata.js',
-      'test/kata.spec.js'
+      'src/kata.spec.js'
     ]
     .forEach(function (f) {
       it(t('creates <%= file %>')({file:f}), function () {
@@ -90,7 +92,37 @@ describe('kata:app', function () {
 
     [
       'src/kata.coffee',
-      'test/kata.spec.coffee'
+      'src/kata.spec.coffee'
+    ]
+    .forEach(function (f) {
+      it(t('creates <%= file %>')({file:f}), function () {
+               assert.file(f);
+      });
+
+      it(t('created <%= file %> content is not empty or "null"')({file:f}), function () {
+        assert.noFileContent(f, /null/);
+      });
+    });
+  });
+
+  describe('when generating with typescript language', function () {
+    beforeEach(function (done) {
+      helpers
+        .run(appDir)
+        .inDir(tempDir)
+        .withPrompts({
+          nameOfKata: 'kata',
+          browser: 'Chrome',
+          reporters: ['spec'],
+          language: 'typescript',
+          installDependencies: false })
+        .on('end', done);
+    });
+
+    [
+      'src/kata.ts',
+      'src/kata.spec.ts',
+      'typings/jasmine.d.ts'
     ]
     .forEach(function (f) {
       it(t('creates <%= file %>')({file:f}), function () {
