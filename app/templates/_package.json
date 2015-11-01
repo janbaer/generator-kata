@@ -25,12 +25,13 @@
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
     "phantomjs-polyfill": "*",
-    "karma-chrome-launcher": "*",<% if (wantsGrowl) { %>
-    "karma-growl-reporter": "*",<% } %>
-    "karma-babel-preprocessor": "*",<% if (coffee) { %>
+    "karma-chrome-launcher": "*",<%if (wantsGrowl) {%>
+    "karma-growl-reporter": "*",<%} if (coffee) {%>
     "karma-coffee-preprocessor": "*",<% } else if (typescript) {%>
     "typescript": "*",
-    "karma-typescript-preprocessor": "*",<% } %>
+    "karma-typescript-preprocessor": "*",<%} else {%>
+    "babel-preset-es2015": "*",
+    "karma-babel-preprocessor": "*", <%}%>
     "karma-spec-reporter": "*"
   },
   "private": true

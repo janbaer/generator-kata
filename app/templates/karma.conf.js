@@ -6,8 +6,7 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     files: [
       'jasmine-aliases.js',
-      'node_modules/phantomjs-polyfill/bind-polyfill.js',<% if (babel) {%>
-      'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',<%} else if (coffee) {%>
+      'node_modules/phantomjs-polyfill/bind-polyfill.js',<% if (coffee) {%>
       'src/**/*.coffee',<%} else if (typescript) {%>
       'src/**/*.ts',<%} else {%>
       'src/**/*.js'<%}%>
@@ -34,6 +33,7 @@ module.exports = function (config) {
     <% if (babel) {%>
     'babelPreprocessor': {
       options: {
+        presets: ['es2015'],
         sourceMap: 'inline'
       },
       filename: function(file) {
