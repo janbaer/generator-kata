@@ -30,6 +30,9 @@ transpiled to ES5 code before the tests will be executed.
 
 ## Version history
 
+* 0.25
+  * Fix a problem with Babel 6.0
+  * Add support for Typescript
 * 0.24
   * Fix a warning with an unresovled peer dependency
   * Update versions of npm dependencies
