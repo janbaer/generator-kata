@@ -20,7 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "jasmine-core": "*",
-    "phantomjs": "*",
+    "phantomjs-prebuilt": "*",
     "karma": "*",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
@@ -30,7 +30,8 @@
     "karma-coffee-preprocessor": "*",<% } else if (typescript) {%>
     "typescript": "*",
     "karma-typescript-preprocessor": "*",<%} else {%>
-    "babel-preset-es2015": "*",
+    "babel-core": "*",
+    "babel-preset-env": "*",
     "karma-babel-preprocessor": "*", <%}%>
     "karma-spec-reporter": "*"
   },
