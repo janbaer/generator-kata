@@ -33,7 +33,7 @@ module.exports = function (config) {
     <% if (babel) {%>
     'babelPreprocessor': {
       options: {
-        presets: ['es2015'],
+        presets: ['env'],
         sourceMap: 'inline'
       },
       filename: function(file) {
